@@ -10,7 +10,7 @@ export async function authorizationValidate(req, res, next){
 
     if(tokenExist.rowCount === 0) return res.status(401).send("Token não existente!! Favor realizar o login!!")
 
-    res.locals.user = tokenExist.rows[0].fk_person_id
+    res.locals.user_id = tokenExist.rows[0].fk_users_id
     
 
     next()

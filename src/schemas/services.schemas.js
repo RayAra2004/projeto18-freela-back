@@ -5,5 +5,7 @@ export const serviceSchema = Joi.object({
     description: Joi.string().trim().min(60).required(), 
     price: Joi.number().positive().required(),
     url: Joi.array().items(Joi.string().uri().required()).required(), 
-    fk_category_id: Joi.array().items(Joi.number().positive().required()).required()
+    fk_category_id: Joi.array().items(Joi.number().positive().required()).required(),
+    address: Joi.number().required(),
+    address: Joi.object()
 })

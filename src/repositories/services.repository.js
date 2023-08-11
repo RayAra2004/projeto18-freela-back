@@ -24,5 +24,5 @@ export async function cretateService(name, description, price, url, fk_category_
         i++;
     }while(i < fk_category_id.length);
 
-    await db.query(`INSERT INTO services_address(fk_services_id, fk_address_id) VALUES($1, $2);`, [id_service, address_id])
+    await db.query(`INSERT INTO services_address(fk_services_id, fk_address_id) VALUES($1, $2);`, [id_service.rows[0].id, address_id])
 }

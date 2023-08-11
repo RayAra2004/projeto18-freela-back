@@ -6,6 +6,6 @@ export const serviceSchema = Joi.object({
     price: Joi.number().positive().required(),
     url: Joi.array().items(Joi.string().uri().required()).required(), 
     fk_category_id: Joi.array().items(Joi.number().positive().required()).required(),
-    address: Joi.number().required(),
+    address_id: Joi.number().required(),
     address: Joi.object()
 })

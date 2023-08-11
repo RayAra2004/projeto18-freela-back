@@ -22,7 +22,7 @@ export async function signIn(req, res){
     try{
         const userExist = await login(email);
 
-        if(userExist.rowCount === 0) return res.status(404).send("Email não castrado no sistema!!!");
+        if(userExist.rowCount === 0) return res.status(404).send("Email não cadastrado no sistema!!!");
         if(!(bcrypt.compareSync(password, userExist.rows[0].password))) return res.status(401).send("Senha incorreta!!");
 
         const token = uuid();

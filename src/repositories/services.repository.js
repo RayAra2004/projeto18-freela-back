@@ -40,6 +40,6 @@ export async function getAllServices(){
         INNER JOIN services_photo ON services.id = services_photo.fk_services_id
         INNER JOIN photo ON photo.id = services_photo.fk_photo_id
         WHERE photo.main = true
-        OFFSET 0 LIMIT 15;
+        OFFSET 0 LIMIT 12;
     `);
 }

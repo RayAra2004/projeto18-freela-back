@@ -1,4 +1,4 @@
-import { cretateService } from "../repositories/services.repository.js";
+import { cretateService, getAllServices } from "../repositories/services.repository.js";
 import { createAddress } from "./address.repository.js";
 
 export async function postService(req, res){
@@ -13,10 +13,18 @@ export async function postService(req, res){
         }else{
             id_address = address_id;
         }
-        //Até aqui está funcionando
         
         await cretateService(name, description, price, url, fk_category_id, user_id, id_address);
         res.sendStatus(201);
+    }catch(err){
+        res.status(500).send(err.message);
+    }
+}
+
+export async function getServices(req, res){
+    try{
+        const services = await getAllServices();
+        res.status(200).send(services.rows);
     }catch(err){
         res.status(500).send(err.message);
     }

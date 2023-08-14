@@ -46,12 +46,13 @@ export async function getAllServices(){
 export async function getServiceByID(id){
     return await db.query(
         `
-        SELECT services.id, services.name,services.description, services.price, JSON_AGG(JSON_BUILD_OBJECT('id', photo.id, 'url', photo.url)) "photos" 
+        SELECT services.id, services.name,services.description, services.price, JSON_AGG(JSON_BUILD_OBJECT('name', users."name", 'phone', users.phone, 'email', users.email)) "user", JSON_AGG(JSON_BUILD_OBJECT('id', photo.id, 'url', photo.url)) "photos" 
         FROM services
         INNER JOIN services_photo ON services.id = services_photo.fk_services_id
         INNER JOIN photo ON photo.id = services_photo.fk_photo_id
+		INNER JOIN users ON users.id = services.fk_users_id
         WHERE services.id = $1
-        GROUP BY services.id;`,
+        GROUP BY services.id, users.name;`,
         [id]
     )
 }

@@ -1,4 +1,4 @@
-import { cretateService, getAllServices, getServiceByID } from "../repositories/services.repository.js";
+import { cretateService, getAllServices, getCategorys, getServiceByID } from "../repositories/services.repository.js";
 import { createAddress } from "./address.repository.js";
 
 export async function postService(req, res){
@@ -38,5 +38,14 @@ export async function getService(req, res){
         res.send(service.rows[0])
     }catch(err){
         res.status(500).send(err.message);
+    }
+}
+
+export async function getAllCategory(req, res){
+    try{
+        const categorys = await getCategorys();
+        res.send(categorys.rows);
+    }catch(err){
+        res.status(500).send(err.message)
     }
 }

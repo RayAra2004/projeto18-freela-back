@@ -56,3 +56,7 @@ export async function getServiceByID(id){
         [id]
     )
 }
+
+export async function getCategorys(){
+    return await db.query(`SELECT * FROM category;`)
+}

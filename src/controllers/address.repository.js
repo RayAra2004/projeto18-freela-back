@@ -1,8 +1,8 @@
 import { db } from "../database/database.connection.js";
 
-export async function createAddress({ postcode, street, number, city, neighbourhood, type_street }){
+export async function createAddress({ postcode, street, number, city, neighborhood, type_street }){
     
-    let id_city, id_neighbourhood, id_type_street;
+    let id_city, id_neighborhood, id_type_street;
 
     if(typeof(city) !== 'number'){
         id_city = await db.query(`INSERT INTO city(city) VALUES($1) RETURNING city_pk;`, [city]);
@@ -11,11 +11,11 @@ export async function createAddress({ postcode, street, number, city, neighbourh
         id_city = city;
     }
 
-    if(typeof(neighbourhood) !== 'number'){
-        id_neighbourhood = await db.query(`INSERT INTO neighbourhood(neighbourhood) VALUES($1) RETURNING neighbourhood_pk;`, [neighbourhood]);
-        id_neighbourhood = id_neighbourhood.rows[0].neighbourhood_pk;
+    if(typeof(neighborhood) !== 'number'){
+        id_neighborhood = await db.query(`INSERT INTO neighbourhood(neighbourhood) VALUES($1) RETURNING neighbourhood_pk;`, [neighborhood]);
+        id_neighborhood = id_neighborhood.rows[0].neighborhood_pk;
     }else{
-        id_neighbourhood = neighbourhood;
+        id_neighborhood = neighborhood;
     }
 
     if(typeof(type_street) !== 'number'){
@@ -25,10 +25,10 @@ export async function createAddress({ postcode, street, number, city, neighbourh
         id_type_street = type_street;
     }
 
-    console.log(id_city, id_neighbourhood, id_type_street)
+    console.log(id_city, id_neighborhood, id_type_street)
 
     return await db.query(
         `INSERT INTO address(fk_city_city_pk, fk_neighbourhood_neighbourhood_pk, postcode, street, number, fk_type_street_type_street_pk)
         VALUES($1, $2, $3, $4, $5, $6) RETURNING id;`,
-        [id_city, id_neighbourhood, postcode, street, number, id_type_street]);
+        [id_city, id_neighborhood, postcode, street, number, id_type_street]);
 }
